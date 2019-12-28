@@ -65,3 +65,7 @@ ci/artefacts/
 ci/secrets/unencrypted/
 codeship.aes
 .vscode/settings.json
+
+.gitignore
+TS100_EN.hex
+workspace/TS100/Core/Src/Translation.cpp
