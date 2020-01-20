@@ -21,14 +21,17 @@
 		"TipDisconnectedString": "SEM PONTA",
 		"SolderingAdvancedPowerPrompt": "Power: ",
 		"OffString": "Off",
-		"ResetOKMessage":"Reset OK"
+		"ResetOKMessage": "Reset OK"
 	},
 	"characters": {
 		"SettingRightChar": "D",
 		"SettingLeftChar": "C",
 		"SettingAutoChar": "A",
 		"SettingFastChar": "R",
-		"SettingSlowChar": "L"
+		"SettingSlowChar": "L",
+		"SettingStartSolderingChar": "T",
+		"SettingStartSleepChar": "S",
+		"SettingStartNoneChar": "F"
 	},
 	"menuDouble": true,
 	"menuGroups": {
@@ -229,6 +232,22 @@
 				"Fonte"
 			],
 			"desc": "Potência da fonte usada (Watt)"
+		},
+		"PowerLimitEnable": {
+			"text": "PLIMEN",
+			"text2": [
+				"P Limit",
+				"Enable"
+			],
+			"desc": "Enable power limit"
+		},
+		"PowerLimit": {
+			"text": "PLIM",
+			"text2": [
+				"Power",
+				"Limit"
+			],
+			"desc": "Maximum power the iron can use <Watts>"
 		}
 	}
 }

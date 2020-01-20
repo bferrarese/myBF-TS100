@@ -116,6 +116,18 @@ var def =
 		{
 			"id": "SettingSlowChar",
 			"len": 1
+		},
+		{
+			"id": "SettingStartSolderingChar",
+			"len": 1
+		},
+		{
+			"id": "SettingStartSleepChar",
+			"len": 1
+		},
+		{
+			"id": "SettingStartNoneChar",
+			"len": 1
 		}
 	],
 	"menuGroups": [
@@ -241,6 +253,16 @@ var def =
 			"id": "PowerInput",
 			"maxLen": 8,
 			"maxLen2": 16
+		},
+		{
+			"id": "PowerLimitEnable",
+			"maxLen": 6,
+			"maxLen2": 13
+		},
+		{
+			"id": "PowerLimit",
+			"maxLen": 5,
+			"maxLen2": 11
 		}
 	]
 }

@@ -30,7 +30,10 @@
 		"SettingLeftChar": "L",
 		"SettingAutoChar": "A",
 		"SettingFastChar": "F",
-		"SettingSlowChar": "S"
+		"SettingSlowChar": "S",
+		"SettingStartSolderingChar": "T",
+		"SettingStartSleepChar": "S",
+		"SettingStartNoneChar": "F"
 	},
 	"menuDouble": true,
 	"menuGroups": {
@@ -70,7 +73,7 @@
 				"Power",
 				"source"
 			],
-			"desc": "Power source. Sets cutoff voltage. <DC 10V> <S 3.3V per cell>"
+			"desc": "Power source. Sets cutoff voltage. <DC 10V> <S 3.3V per cell, disable power limit>"
 		},
 		"SleepTemperature": {
 			"text": "STMP",
@@ -150,7 +153,7 @@
 				"Auto",
 				"start"
 			],
-			"desc": "Automatically starts the iron into soldering on power up. T=Soldering, S= Sleep mode,F=Off"
+			"desc": "Automatically starts the iron into soldering on power up. T=Soldering, S=Sleep, F=Off"
 		},
 		"CooldownBlink": {
 			"text": "CLBLNK",
@@ -231,6 +234,22 @@
 				"Wattage"
 			],
 			"desc": "Power Wattage of the power adapter used"
+		},
+		"PowerLimitEnable": {
+			"text": "PLIMEN",
+			"text2": [
+				"P Limit",
+				"Enable"
+			],
+			"desc": "Enable power limit"
+		},
+		"PowerLimit": {
+			"text": "PLIM",
+			"text2": [
+				"Power",
+				"Limit"
+			],
+			"desc": "Maximum power the iron can use <Watts>"
 		}
 	}
 }

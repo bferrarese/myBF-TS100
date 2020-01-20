@@ -21,14 +21,17 @@
 		"TipDisconnectedString": "PUNTA ASSENTE",
 		"SolderingAdvancedPowerPrompt": "Potenz:",
 		"OffString": "OFF",
-		"ResetOKMessage":"Reset OK"
+		"ResetOKMessage": "Reset OK"
 	},
 	"characters": {
 		"SettingRightChar": "D",
 		"SettingLeftChar": "S",
 		"SettingAutoChar": "A",
 		"SettingFastChar": "V",
-		"SettingSlowChar": "L"
+		"SettingSlowChar": "L",
+		"SettingStartSolderingChar": "A",
+		"SettingStartSleepChar": "S",
+		"SettingStartNoneChar": "D"
 	},
 	"menuDouble": true,
 	"menuGroups": {
@@ -229,6 +232,22 @@
 				"alimentaz"
 			],
 			"desc": "Imposta la potenza massima erogabile dall'alimentatore in uso"
+		},
+		"PowerLimitEnable": {
+			"text": "PLIMEN",
+			"text2": [
+				"P Limit",
+				"Enable"
+			],
+			"desc": "Enable power limit"
+		},
+		"PowerLimit": {
+			"text": "PLIM",
+			"text2": [
+				"Power",
+				"Limit"
+			],
+			"desc": "Maximum power the iron can use <Watts>"
 		}
 	}
 }

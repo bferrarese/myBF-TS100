@@ -21,14 +21,17 @@
 		"TipDisconnectedString": "UÇ ÇIKARILDI",
 		"SolderingAdvancedPowerPrompt": "Güç: ",
 		"OffString": "Kapalı",
-		"ResetOKMessage":"Reset Tamam"
+		"ResetOKMessage": "Reset Tamam"
 	},
 	"characters": {
 		"SettingRightChar": "R",
 		"SettingLeftChar": "L",
 		"SettingAutoChar": "A",
 		"SettingFastChar": "F",
-		"SettingSlowChar": "S"
+		"SettingSlowChar": "S",
+		"SettingStartSolderingChar": "T",
+		"SettingStartSleepChar": "S",
+		"SettingStartNoneChar": "F"
 	},
 	"menuDouble": false,
 	"menuGroups": {
@@ -229,6 +232,22 @@
 				"Miktarı(W)"
 			],
 			"desc": "Kullanılan adaptörün güç miktarı"
+		},
+		"PowerLimitEnable": {
+			"text": "PLIMEN",
+			"text2": [
+				"P Limit",
+				"Enable"
+			],
+			"desc": "Enable power limit"
+		},
+		"PowerLimit": {
+			"text": "PLIM",
+			"text2": [
+				"Power",
+				"Limit"
+			],
+			"desc": "Maximum power the iron can use <Watts>"
 		}
 	}
 }

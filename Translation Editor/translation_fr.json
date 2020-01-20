@@ -21,14 +21,17 @@
 		"TipDisconnectedString": "PANNE DÉBRANCHÉE",
 		"SolderingAdvancedPowerPrompt": "Puissance: ",
 		"OffString": "Off",
-		"ResetOKMessage":"Reset OK"
+		"ResetOKMessage": "Reset OK"
 	},
 	"characters": {
 		"SettingRightChar": "D",
 		"SettingLeftChar": "G",
 		"SettingAutoChar": "A",
 		"SettingFastChar": "R",
-		"SettingSlowChar": "L"
+		"SettingSlowChar": "L",
+		"SettingStartSolderingChar": "A",
+		"SettingStartSleepChar": "V",
+		"SettingStartNoneChar": "D"
 	},
 	"menuDouble": true,
 	"menuGroups": {
@@ -229,6 +232,22 @@
 				"l'alimentation"
 			],
 			"desc": "Puissance de l'alimentation utilisée"
+		},
+		"PowerLimitEnable": {
+			"text": "PLIMEN",
+			"text2": [
+				"P Limit",
+				"Enable"
+			],
+			"desc": "Enable power limit"
+		},
+		"PowerLimit": {
+			"text": "PLIM",
+			"text2": [
+				"Power",
+				"Limit"
+			],
+			"desc": "Maximum power the iron can use <Watts>"
 		}
 	}
 }

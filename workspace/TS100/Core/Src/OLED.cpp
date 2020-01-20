@@ -163,10 +163,10 @@ uint8_t OLED::getFont() {
 	else
 		return 0;
 }
-inline void stripLeaderZeros(char *buffer) {
+inline void stripLeaderZeros(char *buffer, uint8_t places) {
 	//Removing the leading zero's by swapping them to SymbolSpace
 	// Stop 1 short so that we dont blank entire number if its zero
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < (places-1); i++) {
 		if (buffer[i] == 2) {
 			buffer[i] = SymbolSpace[0];
 		} else {
@@ -204,7 +204,7 @@ void OLED::printNumber(uint16_t number, uint8_t places, bool noLeaderZeros) {
 
 	buffer[0] = 2 + number % 10;
 	if (noLeaderZeros)
-		stripLeaderZeros(buffer);
+		stripLeaderZeros(buffer, places);
 	print(buffer);
 }
 
@@ -262,6 +262,44 @@ void OLED::drawArea(int16_t x, int8_t y, uint8_t wide, uint8_t height,
 		}
 	}
 }
+
+// Draw an area, but y must be aligned on 0/8 offset
+// For data which has octets swapped in a 16-bit word.
+void OLED::drawAreaSwapped(int16_t x, int8_t y, uint8_t wide, uint8_t height,
+		const uint8_t *ptr) {
+	// Splat this from x->x+wide in two strides
+	if (x <= -wide)
+		return;  // cutoffleft
+	if (x > 96)
+		return;      // cutoff right
+
+	uint8_t visibleStart = 0;
+	uint8_t visibleEnd = wide;
+
+	// trimming to draw partials
+	if (x < 0) {
+		visibleStart -= x;  // subtract negative value == add absolute value
+	}
+	if (x + wide > 96) {
+		visibleEnd = 96 - x;
+	}
+
+	if (y == 0) {
+		// Splat first line of data
+		for (uint8_t xx = visibleStart; xx < visibleEnd; xx += 2) {
+			firstStripPtr[xx + x] = ptr[xx + 1];
+			firstStripPtr[xx + x + 1] = ptr[xx];
+		}
+	}
+	if (y == 8 || height == 16) {
+		// Splat the second line
+		for (uint8_t xx = visibleStart; xx < visibleEnd; xx += 2) {
+			secondStripPtr[x + xx] = ptr[xx + 1 + (height == 16 ? wide : 0)];
+			secondStripPtr[x + xx + 1] = ptr[xx + (height == 16 ? wide : 0)];
+		}
+	}
+}
+
 void OLED::fillArea(int16_t x, int8_t y, uint8_t wide, uint8_t height,
 		const uint8_t value) {
 	// Splat this from x->x+wide in two strides

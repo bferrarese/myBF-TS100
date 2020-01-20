@@ -21,14 +21,17 @@
 		"TipDisconnectedString": "ANTGAL ATJUNGTAS",
 		"SolderingAdvancedPowerPrompt": "Maitinimas: ",
 		"OffString": "Išj",
-		"ResetOKMessage":"Reset OK"
+		"ResetOKMessage": "Reset OK"
 	},
 	"characters": {
 		"SettingRightChar": "D",
 		"SettingLeftChar": "K",
 		"SettingAutoChar": "A",
 		"SettingFastChar": "T",
-		"SettingSlowChar": "N"
+		"SettingSlowChar": "N",
+		"SettingStartSolderingChar": "T",
+		"SettingStartSleepChar": "S",
+		"SettingStartNoneChar": "F"
 	},
 	"menuDouble": true,
 	"menuGroups": {
@@ -229,6 +232,22 @@
 				"vatais"
 			],
 			"desc": "Maitinimo bloko galia vatais"
+		},
+		"PowerLimitEnable": {
+			"text": "PLIMEN",
+			"text2": [
+				"P Limit",
+				"Enable"
+			],
+			"desc": "Enable power limit"
+		},
+		"PowerLimit": {
+			"text": "PLIM",
+			"text2": [
+				"Power",
+				"Limit"
+			],
+			"desc": "Maximum power the iron can use <Watts>"
 		}
 	}
 }
