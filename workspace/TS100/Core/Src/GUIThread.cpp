@@ -359,7 +359,7 @@ static int gui_SolderingSleepingMode() {
 		ButtonState buttons = getButtonState();
 		if (buttons)
 			return 0;
-		if ((xTaskGetTickCount() - lastMovementTime < 100)
+		if ((lastMovementTime > 100 && (xTaskGetTickCount() - lastMovementTime < 100))
 				|| (xTaskGetTickCount() - lastButtonTime < 100))
 			return 0;  // user moved or pressed a button, go back to soldering
 #ifdef MODEL_TS100
@@ -710,9 +710,15 @@ void startGUITask(void const *argument __unused) {
 	if (systemSettings.autoStartMode) {
 		// jump directly to the autostart mode
 		if (systemSettings.autoStartMode == 1)
+		{
 			gui_solderingMode(0);
+			buttonLockout = true;
+		}
 		if (systemSettings.autoStartMode == 2)
+		{
 			gui_solderingMode(1);
+			buttonLockout = true;
+		}
 	}
 
 #ifdef ACCELDEBUG
