@@ -8,6 +8,7 @@
 #include "TipThermoModel.h"
 #include "Settings.h"
 #include "hardware.h"
+#include "../../configuration.h"
 
 /*
  * The hardware is laid out  as a non-inverting op-amp
@@ -26,24 +27,12 @@
  * This was bought to my attention by <Kuba Sztandera>
  */
 
-// TIP_GAIN =  TIP_GAIN/1000 == uV per deg C constant of the tip
-#ifdef MODEL_TS100
-#define OP_AMP_Rf 		750*1000 		/*750  Kilo-ohms -> From schematic, R1*/
-#define OP_AMP_Rin 		2370			/*2.37 Kilo-ohms -> From schematic, R2*/
-#define TIP_GAIN 405
-#else
-#define OP_AMP_Rf 		180*1000 		/*180  Kilo-ohms -> From schematic, R6*/
-#define OP_AMP_Rin 		2000			/*2.0  Kilo-ohms -> From schematic, R3*/
-#define TIP_GAIN 115
-
-#endif
-
 #define  op_amp_gain_stage  (1+(OP_AMP_Rf/OP_AMP_Rin))
 uint32_t TipThermoModel::convertTipRawADCTouV(uint16_t rawADC) {
 	// This takes the raw ADC samples, converts these to uV
 	// Then divides this down by the gain to convert to the uV on the input to the op-amp (A+B terminals)
 	// Then remove the calibration value that is stored as a tip offset
-	uint32_t vddRailmVX10 = 33000;	//TODO use ADC Vref to calculate this
+	uint32_t vddRailmVX10 = 33000;	//The vreg is +-2%, but we have no higher accuracy available
 	// 4096 * 8 readings for full scale
 	// Convert the input ADC reading back into mV times 10 format.
 	uint32_t rawInputmVX10 = (rawADC * vddRailmVX10) / (4096 * 8);
@@ -63,9 +52,11 @@ uint32_t TipThermoModel::convertTipRawADCTouV(uint16_t rawADC) {
 uint32_t TipThermoModel::convertTipRawADCToDegC(uint16_t rawADC) {
 	return convertuVToDegC(convertTipRawADCTouV(rawADC));
 }
+#ifdef ENABLED_FAHRENHEIT_SUPPORT
 uint32_t TipThermoModel::convertTipRawADCToDegF(uint16_t rawADC) {
 	return convertuVToDegF(convertTipRawADCTouV(rawADC));
 }
+#endif
 
 //Table that is designed to be walked to find the best sample for the lookup
 
@@ -80,13 +71,14 @@ int32_t LinearInterpolate(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 }
 
 uint32_t TipThermoModel::convertuVToDegC(uint32_t tipuVDelta) {
-	//based on new measurements, tip is quite linear at 24.9uV per deg C = 2.49 per 0.1C
+	//based on new measurements, tip is quite linear
 	//
 	tipuVDelta *= TIP_GAIN;
 	tipuVDelta /= 10000;
 	return tipuVDelta;
 }
 
+#ifdef ENABLED_FAHRENHEIT_SUPPORT
 uint32_t TipThermoModel::convertuVToDegF(uint32_t tipuVDelta) {
 	tipuVDelta *= TIP_GAIN;
 	tipuVDelta /= 1000;
@@ -105,6 +97,7 @@ uint32_t TipThermoModel::convertFtoC(uint32_t degF) {
 		return 0;
 	return ((degF - 32) * 5) / 9;
 }
+#endif
 
 uint32_t TipThermoModel::getTipInC(bool sampleNow) {
 	uint32_t currentTipTempInC = TipThermoModel::convertTipRawADCToDegC(
@@ -112,13 +105,14 @@ uint32_t TipThermoModel::getTipInC(bool sampleNow) {
 	currentTipTempInC += getHandleTemperature() / 10; //Add handle offset
 	return currentTipTempInC;
 }
-
+#ifdef ENABLED_FAHRENHEIT_SUPPORT
 uint32_t TipThermoModel::getTipInF(bool sampleNow) {
 	uint32_t currentTipTempInF = TipThermoModel::convertTipRawADCToDegF(
 			getTipRawTemp(sampleNow));
 	currentTipTempInF += convertCtoF(getHandleTemperature() / 10); //Add handle offset
 	return currentTipTempInF;
 }
+#endif
 
 uint32_t TipThermoModel::getTipMaxInC() {
 	uint32_t maximumTipTemp = TipThermoModel::convertTipRawADCToDegC(

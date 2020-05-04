@@ -11,7 +11,8 @@
 #define SETTINGS_H_
 #include <stdint.h>
 #include "stm32f1xx_hal.h"
-#define SETTINGSVERSION   ( 0x1C )
+#include "unit.h"
+#define SETTINGSVERSION   ( 0x1E )
 /*Change this if you change the struct below to prevent people getting \
           out of sync*/
 
@@ -35,7 +36,9 @@ typedef struct {
 								  // down screen until its <50C
 	uint8_t detailedIDLE :1;       // Detailed idle screen
 	uint8_t detailedSoldering :1;  // Detailed soldering screens
+#ifdef ENABLED_FAHRENHEIT_SUPPORT
 	uint8_t temperatureInF;         // Should the temp be in F or C (true is F)
+#endif
 	uint8_t descriptionScrollSpeed :1;  // Description scroll speed
 	uint16_t voltageDiv;                 // Voltage divisor factor
 	uint16_t BoostTemp;                  // Boost mode set point for the iron
@@ -50,6 +53,10 @@ typedef struct {
 	uint8_t version;  // Used to track if a reset is needed on firmware upgrade
 	uint32_t padding;  // This is here for in case we are not an even divisor so
 					   // that nothing gets cut off
+  uint8_t ReverseButtonTempChangeEnabled;   // Change the plus and minus button assigment
+  uint16_t TempChangeLongStep;              // Change the plus and minus button assigment
+  uint16_t TempChangeShortStep;             // Change the plus and minus button assigment
+
 } systemSettingsType;
 
 extern volatile systemSettingsType systemSettings;
